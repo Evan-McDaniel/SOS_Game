@@ -31,6 +31,7 @@
             dataGridViewTextBoxColumn1 = new DataGridViewButtonColumn();
             dataGridViewTextBoxColumn2 = new DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumn3 = new DataGridViewTextBoxColumn();
+            gameBoard = new DataGridView();
             boardSize = new TextBox();
             label1 = new Label();
             Simple = new RadioButton();
@@ -45,21 +46,12 @@
             currentTurnLabel = new Label();
             currentPlayer = new Label();
             newGameButton = new Button();
+            blueBox = new GroupBox();
+            redBox = new GroupBox();
             ((System.ComponentModel.ISupportInitialize)gameBoard).BeginInit();
+            blueBox.SuspendLayout();
+            redBox.SuspendLayout();
             SuspendLayout();
-            // 
-            // gameBoard
-            // 
-            gameBoard.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            gameBoard.ColumnHeadersVisible = false;
-            //gameBoard.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn1, dataGridViewTextBoxColumn2, dataGridViewTextBoxColumn3 });
-            gameBoard.Location = new Point(232, 130);
-            gameBoard.Name = "gameBoard";
-            gameBoard.RowHeadersVisible = false;
-            gameBoard.RowHeadersWidth = 51;
-            gameBoard.RowTemplate.Height = 29;
-            gameBoard.Size = new Size(300, 188);
-            gameBoard.TabIndex = 0;
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -79,6 +71,23 @@
             dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
             dataGridViewTextBoxColumn3.Width = 125;
             // 
+            // gameBoard
+            // 
+            gameBoard.AllowUserToResizeColumns = false;
+            gameBoard.AllowUserToResizeRows = false;
+            gameBoard.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            gameBoard.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            gameBoard.ColumnHeadersVisible = false;
+            gameBoard.Location = new Point(232, 130);
+            gameBoard.Name = "gameBoard";
+            gameBoard.RowHeadersVisible = false;
+            gameBoard.RowHeadersWidth = 51;
+            gameBoard.RowTemplate.Height = 29;
+            gameBoard.ScrollBars = ScrollBars.None;
+            gameBoard.Size = new Size(300, 188);
+            gameBoard.TabIndex = 0;
+            gameBoard.CellContentClick += gameBoard_CellContentClick;
+            // 
             // boardSize
             // 
             boardSize.Location = new Point(705, 28);
@@ -86,6 +95,7 @@
             boardSize.Size = new Size(47, 27);
             boardSize.TabIndex = 5;
             boardSize.Text = "3";
+            boardSize.KeyPress += new System.Windows.Forms.KeyPressEventHandler(keyPressedBoardSize);
             // 
             // label1
             // 
@@ -101,6 +111,7 @@
             // Simple
             // 
             Simple.AutoSize = true;
+            Simple.Checked = true;
             Simple.Location = new Point(123, 27);
             Simple.Name = "Simple";
             Simple.Size = new Size(118, 24);
@@ -116,7 +127,6 @@
             radioButton2.Name = "radioButton2";
             radioButton2.Size = new Size(123, 24);
             radioButton2.TabIndex = 3;
-            radioButton2.TabStop = true;
             radioButton2.Text = "General game";
             radioButton2.UseVisualStyleBackColor = true;
             // 
@@ -153,7 +163,8 @@
             // blueChoiceS
             // 
             blueChoiceS.AutoSize = true;
-            blueChoiceS.Location = new Point(34, 176);
+            blueChoiceS.Checked = true;
+            blueChoiceS.Location = new Point(24, 26);
             blueChoiceS.Name = "blueChoiceS";
             blueChoiceS.Size = new Size(38, 24);
             blueChoiceS.TabIndex = 8;
@@ -165,11 +176,10 @@
             // blueChoiceO
             // 
             blueChoiceO.AutoSize = true;
-            blueChoiceO.Location = new Point(34, 215);
+            blueChoiceO.Location = new Point(24, 65);
             blueChoiceO.Name = "blueChoiceO";
             blueChoiceO.Size = new Size(41, 24);
             blueChoiceO.TabIndex = 9;
-            blueChoiceO.TabStop = true;
             blueChoiceO.Text = "O";
             blueChoiceO.UseVisualStyleBackColor = true;
             blueChoiceO.CheckedChanged += blueChoiceO_CheckedChanged;
@@ -177,24 +187,26 @@
             // redChoiceO
             // 
             redChoiceO.AutoSize = true;
-            redChoiceO.Location = new Point(638, 215);
+            redChoiceO.Location = new Point(24, 65);
             redChoiceO.Name = "redChoiceO";
             redChoiceO.Size = new Size(41, 24);
             redChoiceO.TabIndex = 11;
-            redChoiceO.TabStop = true;
             redChoiceO.Text = "O";
             redChoiceO.UseVisualStyleBackColor = true;
+            redChoiceO.CheckedChanged += redChoiceO_CheckedChanged;
             // 
             // redChoiceS
             // 
             redChoiceS.AutoSize = true;
-            redChoiceS.Location = new Point(638, 176);
+            redChoiceS.Checked = true;
+            redChoiceS.Location = new Point(24, 26);
             redChoiceS.Name = "redChoiceS";
             redChoiceS.Size = new Size(38, 24);
             redChoiceS.TabIndex = 10;
             redChoiceS.TabStop = true;
             redChoiceS.Text = "S";
             redChoiceS.UseVisualStyleBackColor = true;
+            redChoiceS.CheckedChanged += redChoiceS_CheckedChanged;
             // 
             // currentTurnLabel
             // 
@@ -225,21 +237,36 @@
             newGameButton.Text = "New Game";
             newGameButton.UseVisualStyleBackColor = true;
             // 
-            // dataGridViewTextBoxColumn4
+            // blueBox
             // 
+            blueBox.Controls.Add(blueChoiceS);
+            blueBox.Controls.Add(blueChoiceO);
+            blueBox.Location = new Point(14, 161);
+            blueBox.Name = "blueBox";
+            blueBox.Size = new Size(108, 125);
+            blueBox.TabIndex = 15;
+            blueBox.TabStop = false;
+            // 
+            // redBox
+            // 
+            redBox.Controls.Add(redChoiceS);
+            redBox.Controls.Add(redChoiceO);
+            redBox.Location = new Point(622, 161);
+            redBox.Name = "redBox";
+            redBox.Size = new Size(104, 125);
+            redBox.TabIndex = 16;
+            redBox.TabStop = false;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(redBox);
+            Controls.Add(blueBox);
             Controls.Add(newGameButton);
             Controls.Add(currentPlayer);
             Controls.Add(currentTurnLabel);
-            Controls.Add(redChoiceO);
-            Controls.Add(redChoiceS);
-            Controls.Add(blueChoiceO);
-            Controls.Add(blueChoiceS);
             Controls.Add(redPlayer);
             Controls.Add(bluePlayer);
             Controls.Add(boardSize);
@@ -252,13 +279,17 @@
             Text = "Form1";
             Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)gameBoard).EndInit();
+            blueBox.ResumeLayout(false);
+            blueBox.PerformLayout();
+            redBox.ResumeLayout(false);
+            redBox.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        
+
         private Label label1;
         private RadioButton Simple;
         private RadioButton radioButton2;
@@ -276,5 +307,7 @@
         private DataGridViewButtonColumn dataGridViewTextBoxColumn1;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private GroupBox blueBox;
+        private GroupBox redBox;
     }
 }
