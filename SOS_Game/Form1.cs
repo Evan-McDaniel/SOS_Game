@@ -94,7 +94,35 @@ namespace SOS_Game
             if (e.KeyChar == (char)Keys.Return)
 
             {
-                MessageBox.Show(boardSize.Text);
+                this.gridSize = Int32.Parse(boardSize.Text);
+                //MessageBox.Show(boardSize.Text);
+                resizeBoard(gridSize);
+            }
+        }
+
+        private void resizeBoard(int size)
+        {
+            if (boardSize == null) { return; }
+            gameBoard.Rows.Clear();
+            gameBoard.Columns.Clear();
+
+            for (int i = 0; i < size; i++)
+            {
+                gameBoard.Columns.Insert(i, new DataGridViewButtonColumn());
+            }
+
+            for (int r = 0; r < size; r++)
+            {
+                DataGridViewRow row = new DataGridViewRow();
+                row.CreateCells(this.gameBoard);
+                row.Height = gameBoard.Height / size;
+
+                for (int c = 0; c < size; c++)
+                {
+                    row.Cells[c].Value = " ";
+                }
+
+                this.gameBoard.Rows.Add(row);
             }
         }
     }
