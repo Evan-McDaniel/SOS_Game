@@ -100,9 +100,13 @@ namespace SOS_Game
             }
         }
 
-        private void resizeBoard(int size)
+        public void resizeBoard(int size)
         {
-            if (boardSize == null) { return; }
+            if (size < 3)
+            {
+                throw new ArgumentException("Board size cannot be less than 3");
+            }
+            if (size == null) { return; }
             gameBoard.Rows.Clear();
             gameBoard.Columns.Clear();
 
@@ -123,6 +127,18 @@ namespace SOS_Game
                 }
 
                 this.gameBoard.Rows.Add(row);
+            }
+        }
+
+        public string getGameMode()
+        {
+            if (Simple.Checked)
+            {
+                return "Simple";
+            }
+            else
+            {
+                return "General";
             }
         }
     }
