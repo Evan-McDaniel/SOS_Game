@@ -83,6 +83,7 @@ namespace SOS_Game
             else
             {
                 this.gameBoard.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = gameLogic.getToken().ToString();
+                this.gameLogic.checkSOS(ref this.gameBoard, e);
                 this.gameLogic.playerClicked();
                 this.currentPlayer.Text = gameLogic.playerTurn;
                 Console.WriteLine(gameLogic.playerTurn);

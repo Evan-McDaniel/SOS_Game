@@ -11,8 +11,20 @@ namespace SOS_Game
         public string playerTurn = "Blue";
         public char blueChoice;
         public char redChoice;
-        public char gameMode;
+        public char gameMode = 's';
         public char[][] board = new char[3][];
+
+        public char getToken()
+        {
+            if (playerTurn == "Blue")
+            {
+                return blueChoice;
+            }
+            else
+            {
+                return redChoice;
+            }
+        }
 
         public void playerClicked ()
         {
@@ -26,16 +38,121 @@ namespace SOS_Game
             }
         }
 
-        public char getToken()
+        public void checkSOS(ref DataGridView board, DataGridViewCellEventArgs e)
         {
-            if (playerTurn == "Blue")
+            int row = e.RowIndex;
+            int col = e.ColumnIndex;
+
+            Color color = playerTurn == "Blue" ? Color.Blue: Color.Red;
+
+            int[] match = checkNeighbors(board, row, col);
+            if (match[0] != -1)
             {
-                return blueChoice;
+                board.Rows[row].Cells[col].Style.BackColor = color;
+                board.Rows[match[0]].Cells[match[1]].Style.BackColor = color;
+                board.Rows[match[2]].Cells[match[3]].Style.BackColor = color;
             }
-            else
+        }
+
+        private int[] checkNeighbors(DataGridView board, int row, int col)
+        {
+            string alt = (board.Rows[row].Cells[col].Value.ToString() == "O")? "S": "O";
+            string currValue = board.Rows[row].Cells[col].Value.ToString();
+            try
             {
-                return redChoice;
+                if ((board.Rows[row + 1].Cells[col]).Value.ToString() == alt && (board.Rows[row + 2].Cells[col]).Value.ToString() == currValue)
+                {
+                    int[] arr = { row + 1, col, row+2,col };
+                    return arr;
+                }
             }
+            catch (System.ArgumentOutOfRangeException)
+            {
+               
+            }
+            try
+            {
+                if (board.Rows[row + 1].Cells[col + 1].Value.ToString() == alt && board.Rows[row + 2].Cells[col + 2].Value.ToString() == currValue)
+                {
+                    int[] arr = { row + 1, col + 1,row+2, col+2 };
+                    return arr;
+                }
+            }
+            catch (System.ArgumentOutOfRangeException)
+            {
+
+            }
+            try
+            {
+                if (board.Rows[row].Cells[col + 1].Value.ToString() == alt && board.Rows[row].Cells[col + 2].Value.ToString() == currValue)
+                {
+                    int[] arr = { row, col + 1,row, col+2 };
+                    return arr;
+                }
+            }
+            catch (System.ArgumentOutOfRangeException)
+            {
+
+            }
+            try
+            {
+                if (board.Rows[row - 1].Cells[col + 1].Value.ToString() == alt && board.Rows[row - 2].Cells[col + 2].Value.ToString() == currValue)
+                {
+                    int[] arr = { row - 1, col + 1, row-2, col + 2 };
+                    return arr;
+                }
+            }
+            catch (System.ArgumentOutOfRangeException)
+            {
+
+            }
+            try {     
+                if (board.Rows[row - 1].Cells[col].Value.ToString() == alt && board.Rows[row - 2].Cells[col].Value.ToString() == currValue)
+                {
+                    int[] arr = { row - 1, col, row-2, col };
+                    return arr;
+                }
+            }
+            catch (System.ArgumentOutOfRangeException)
+            {
+
+            }
+            try {    
+                if (board.Rows[row - 1].Cells[col - 1].Value.ToString() == alt && board.Rows[row - 2].Cells[col - 2].Value.ToString() == currValue)
+                {
+                    int[] arr = { row - 1, col - 1, row-2,col-2 };
+                    return arr;
+                }
+            }
+            catch (System.ArgumentOutOfRangeException)
+            {
+
+            }
+            try{
+                if (board.Rows[row].Cells[col - 1].Value.ToString() == alt && board.Rows[row].Cells[col - 2].Value.ToString() == currValue)
+                {
+                    int[] arr = { row, col - 1,row,col-2 };
+                    return arr;
+                }
+            }
+            catch (System.ArgumentOutOfRangeException)
+            {
+
+            }
+            try { 
+                if (board.Rows[row + 1].Cells[col - 1].Value.ToString() == alt && board.Rows[row + 2].Cells[col - 2].Value.ToString() == currValue)
+                {
+                    int[] arr = { row + 1, col - 1, row+2,col-2 };
+                    return arr;
+                }
+            }
+            catch (System.ArgumentOutOfRangeException)
+            {
+
+            }
+
+            int[] arr2 = { -1, -1 };
+            return arr2;
         }
     }
 }
