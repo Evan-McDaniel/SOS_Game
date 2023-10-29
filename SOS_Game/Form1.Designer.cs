@@ -95,7 +95,7 @@
             boardSize.Size = new Size(47, 27);
             boardSize.TabIndex = 5;
             boardSize.Text = "3";
-            boardSize.KeyPress += new System.Windows.Forms.KeyPressEventHandler(keyPressedBoardSize);
+            boardSize.KeyPress += keyPressedBoardSize;
             // 
             // label1
             // 
@@ -119,6 +119,7 @@
             Simple.TabStop = true;
             Simple.Text = "Simple game";
             Simple.UseVisualStyleBackColor = true;
+            Simple.CheckedChanged += Simple_CheckedChanged;
             // 
             // radioButton2
             // 
@@ -129,6 +130,7 @@
             radioButton2.TabIndex = 3;
             radioButton2.Text = "General game";
             radioButton2.UseVisualStyleBackColor = true;
+            radioButton2.CheckedChanged += radioButton2_CheckedChanged;
             // 
             // label2
             // 
@@ -236,6 +238,7 @@
             newGameButton.TabIndex = 14;
             newGameButton.Text = "New Game";
             newGameButton.UseVisualStyleBackColor = true;
+            newGameButton.Click += newGameButton_Click;
             // 
             // blueBox
             // 

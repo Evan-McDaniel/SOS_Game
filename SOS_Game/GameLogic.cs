@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +17,8 @@ namespace SOS_Game
         public int redPoints = 0;
         public char gameMode = 's';
         public char[][] board = new char[3][];
+        private int turns = 0;
+        public int boardSize;
 
         public char getToken()
         {
@@ -42,6 +45,7 @@ namespace SOS_Game
 
         public void playerClicked ()
         {
+            turns++;
             if(playerTurn == "Blue")
             {
                 playerTurn = "Red";
@@ -50,6 +54,11 @@ namespace SOS_Game
             {
                 playerTurn = "Blue";
             }
+        }
+
+        public void resetGame()
+        {
+
         }
 
         public void checkSOS(ref DataGridView board, DataGridViewCellEventArgs e)
@@ -72,9 +81,10 @@ namespace SOS_Game
 
         public bool checkWinner()
         {
+            int maxCells = this.boardSize * this.boardSize;
             if(gameMode == 's')
             {
-                if(bluePoints > redPoints)
+                if (bluePoints > redPoints)
                 {
                     winner = "Blue";
                     return true;
@@ -84,14 +94,38 @@ namespace SOS_Game
                     winner = "Red";
                     return true;
                 }
+                else if (redPoints != 0 || bluePoints != 0)
+                {
+                    winner = "Draw";
+                    return true;
+                }
+                else { return false; }
+            }
+            else
+            {
+                if (this.turns >= maxCells)
+                {
+                    if (bluePoints > redPoints)
+                    {
+                        winner = "Blue";
+                        return true;
+                    }
+                    else if (redPoints > bluePoints)
+                    {
+                        winner = "Red";
+                        return true;
+                    }
+                    else if (redPoints != 0 || bluePoints != 0)
+                    {
+                        winner = "Draw";
+                        return true;
+                    }
+                    else { return false; }
+                }
                 else
                 {
                     return false;
                 }
-            }
-            else
-            {
-                return false;
             }
         }
 

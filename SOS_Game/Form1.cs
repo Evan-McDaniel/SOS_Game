@@ -22,24 +22,7 @@ namespace SOS_Game
 
             //gameBoard.ColumnCount = width;
 
-            for (int i = 0; i < gridSize; i++)
-            {
-                gameBoard.Columns.Insert(i, new DataGridViewButtonColumn());
-            }
-
-            for (int r = 0; r < height; r++)
-            {
-                DataGridViewRow row = new DataGridViewRow();
-                row.CreateCells(this.gameBoard);
-                row.Height = gameBoard.Height / width;
-
-                for (int c = 0; c < width; c++)
-                {
-                    row.Cells[c].Value = " ";
-                }
-
-                this.gameBoard.Rows.Add(row);
-            }
+            this.resizeBoard(gridSize);
             gameBoard.AllowUserToAddRows = false;
         }
 
@@ -95,7 +78,7 @@ namespace SOS_Game
         {
             if (this.gameLogic.checkWinner())
             {
-                String result = String.Format("The winner is: {0}\nBlue Points: {1}\nRed Points: {}", this.gameLogic.winner, this.gameLogic.bluePoints, this.gameLogic.redPoints);
+                String result = String.Format("The winner is: {0}\nBlue Points: {1}\nRed Points: {2}", this.gameLogic.winner, this.gameLogic.bluePoints, this.gameLogic.redPoints);
                 MessageBox.Show(result);
             }
         }
@@ -139,6 +122,7 @@ namespace SOS_Game
 
                 this.gameBoard.Rows.Add(row);
             }
+            this.gameLogic.boardSize = size;
         }
 
         public string getGameMode()
@@ -151,6 +135,23 @@ namespace SOS_Game
             {
                 return "General";
             }
+        }
+
+        private void Simple_CheckedChanged(object sender, EventArgs e)
+        {
+            this.gameLogic.gameMode = 's';
+        }
+
+        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        {
+            this.gameLogic.gameMode = 'g';
+        }
+
+        private void newGameButton_Click(object sender, EventArgs e)
+        {
+            var t = new Thread(() => Application.Run(new Form1()));
+            t.Start();
+            this.Close();
         }
     }
 }
