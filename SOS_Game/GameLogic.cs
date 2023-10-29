@@ -9,8 +9,11 @@ namespace SOS_Game
     internal class GameLogic
     {
         public string playerTurn = "Blue";
+        public string winner;
         public char blueChoice;
         public char redChoice;
+        public int bluePoints = 0;
+        public int redPoints = 0;
         public char gameMode = 's';
         public char[][] board = new char[3][];
 
@@ -23,6 +26,17 @@ namespace SOS_Game
             else
             {
                 return redChoice;
+            }
+        }
+
+        private void pointScored()
+        {
+            if(playerTurn == "Blue")
+            {
+                bluePoints++;
+            }else if(playerTurn == "Red")
+            {
+                redPoints++;
             }
         }
 
@@ -51,6 +65,33 @@ namespace SOS_Game
                 board.Rows[row].Cells[col].Style.BackColor = color;
                 board.Rows[match[0]].Cells[match[1]].Style.BackColor = color;
                 board.Rows[match[2]].Cells[match[3]].Style.BackColor = color;
+                pointScored();
+            }
+
+        }
+
+        public bool checkWinner()
+        {
+            if(gameMode == 's')
+            {
+                if(bluePoints > redPoints)
+                {
+                    winner = "Blue";
+                    return true;
+                }
+                else if (redPoints > bluePoints)
+                {
+                    winner = "Red";
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
             }
         }
 

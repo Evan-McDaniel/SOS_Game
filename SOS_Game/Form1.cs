@@ -85,8 +85,18 @@ namespace SOS_Game
                 this.gameBoard.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = gameLogic.getToken().ToString();
                 this.gameLogic.checkSOS(ref this.gameBoard, e);
                 this.gameLogic.playerClicked();
+                checkGameWinner();
                 this.currentPlayer.Text = gameLogic.playerTurn;
-                Console.WriteLine(gameLogic.playerTurn);
+                //Console.WriteLine(gameLogic.playerTurn);
+            }
+        }
+
+        private void checkGameWinner()
+        {
+            if (this.gameLogic.checkWinner())
+            {
+                String result = String.Format("The winner is: {0}\nBlue Points: {1}\nRed Points: {}", this.gameLogic.winner, this.gameLogic.bluePoints, this.gameLogic.redPoints);
+                MessageBox.Show(result);
             }
         }
 
