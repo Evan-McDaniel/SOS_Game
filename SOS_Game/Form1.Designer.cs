@@ -35,7 +35,7 @@
             boardSize = new TextBox();
             label1 = new Label();
             Simple = new RadioButton();
-            radioButton2 = new RadioButton();
+            General = new RadioButton();
             label2 = new Label();
             bluePlayer = new Label();
             redPlayer = new Label();
@@ -121,16 +121,16 @@
             Simple.UseVisualStyleBackColor = true;
             Simple.CheckedChanged += Simple_CheckedChanged;
             // 
-            // radioButton2
+            // General
             // 
-            radioButton2.AutoSize = true;
-            radioButton2.Location = new Point(277, 27);
-            radioButton2.Name = "radioButton2";
-            radioButton2.Size = new Size(123, 24);
-            radioButton2.TabIndex = 3;
-            radioButton2.Text = "General game";
-            radioButton2.UseVisualStyleBackColor = true;
-            radioButton2.CheckedChanged += radioButton2_CheckedChanged;
+            General.AutoSize = true;
+            General.Location = new Point(277, 27);
+            General.Name = "General";
+            General.Size = new Size(123, 24);
+            General.TabIndex = 3;
+            General.Text = "General game";
+            General.UseVisualStyleBackColor = true;
+            General.CheckedChanged += General_CheckedChanged;
             // 
             // label2
             // 
@@ -274,7 +274,7 @@
             Controls.Add(bluePlayer);
             Controls.Add(boardSize);
             Controls.Add(label2);
-            Controls.Add(radioButton2);
+            Controls.Add(General);
             Controls.Add(Simple);
             Controls.Add(label1);
             Controls.Add(gameBoard);
@@ -295,7 +295,7 @@
 
         private Label label1;
         private RadioButton Simple;
-        private RadioButton radioButton2;
+        private RadioButton General;
         private Label label2;
         private TextBox boardSize;
         private Label bluePlayer;

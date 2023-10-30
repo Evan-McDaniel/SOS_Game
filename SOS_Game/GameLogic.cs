@@ -99,6 +99,11 @@ namespace SOS_Game
                     winner = "Draw";
                     return true;
                 }
+                else if (this.turns >= maxCells)
+                {
+                    winner = "Draw";
+                    return true;
+                }
                 else { return false; }
             }
             else
@@ -115,12 +120,15 @@ namespace SOS_Game
                         winner = "Red";
                         return true;
                     }
-                    else if (redPoints != 0 || bluePoints != 0)
-                    {
+                    //else if (redPoints != 0 || bluePoints != 0)
+                    //{
+                    //    winner = "Draw";
+                    //    return true;
+                    //}
+                    else {
                         winner = "Draw";
                         return true;
                     }
-                    else { return false; }
                 }
                 else
                 {

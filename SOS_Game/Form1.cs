@@ -137,12 +137,26 @@ namespace SOS_Game
             }
         }
 
+        public char getGameLogicMode()
+        {
+            return this.gameLogic.gameMode;
+        }
+
+        public void clickSimple()
+        {
+            this.Simple.PerformClick();
+        }
+        public void clickGeneral()
+        {
+            this.General.PerformClick();
+        }
+
         private void Simple_CheckedChanged(object sender, EventArgs e)
         {
             this.gameLogic.gameMode = 's';
         }
 
-        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        private void General_CheckedChanged(object sender, EventArgs e)
         {
             this.gameLogic.gameMode = 'g';
         }
