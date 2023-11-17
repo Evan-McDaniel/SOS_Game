@@ -167,5 +167,17 @@ namespace SOS_Game
             t.Start();
             this.Close();
         }
+
+        private void blueComputerButton_CheckedChanged(object sender, EventArgs e)
+        {
+            this.gameLogic.computer = true;
+            this.gameLogic.computerTurn(ref this.gameBoard);
+        }
+
+        private void redComputerButton_CheckedChanged(object sender, EventArgs e)
+        {
+            this.gameLogic.computer = true;
+            this.gameLogic.computerTurn(ref this.gameBoard);
+        }
     }
 }

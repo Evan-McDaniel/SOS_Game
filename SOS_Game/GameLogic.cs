@@ -19,6 +19,7 @@ namespace SOS_Game
         public char[][] board = new char[3][];
         private int turns = 0;
         public int boardSize;
+        public bool computer = false;
 
         public char getToken()
         {
@@ -59,6 +60,30 @@ namespace SOS_Game
         public void resetGame()
         {
 
+        }
+
+        public void computerTurn(ref DataGridView board)
+        {
+            Random rand = new Random();
+            bool flag = false;
+            int randCellX = 0;
+            int randCellY = 0;
+            Thread.Sleep(1000);
+            while (!flag)
+            {
+                randCellX = rand.Next(0,boardSize);
+                randCellY = rand.Next(0, boardSize);
+                if (board.Rows[randCellX].Cells[randCellY].Value == " ")
+                {
+                    flag = true;
+                }
+                else
+                {
+                    continue;
+                }
+            }
+            board.Rows[randCellX].Cells[randCellY].Value = this.getToken().ToString();
+            // TODO: finish game logic here 
         }
 
         public void checkSOS(ref DataGridView board, DataGridViewCellEventArgs e)
