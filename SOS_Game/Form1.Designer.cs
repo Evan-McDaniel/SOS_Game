@@ -229,6 +229,7 @@
             redChoiceO.TabIndex = 2;
             redChoiceO.Text = "O";
             redChoiceO.UseVisualStyleBackColor = true;
+            redChoiceO.CheckedChanged += redChoiceO_CheckedChanged;
             // 
             // redChoiceS
             // 
@@ -241,6 +242,7 @@
             redChoiceS.TabStop = true;
             redChoiceS.Text = "S";
             redChoiceS.UseVisualStyleBackColor = true;
+            redChoiceS.CheckedChanged += redChoiceS_CheckedChanged;
             // 
             // redComputerButton
             // 

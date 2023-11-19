@@ -64,11 +64,13 @@ namespace SOS_Game
 
         public void computerTurn(ref DataGridView board)
         {
+            
+
             Random rand = new Random();
             bool flag = false;
             int randCellX = 0;
             int randCellY = 0;
-            Thread.Sleep(1000);
+            Thread.Sleep(100);
             while (!flag)
             {
                 randCellX = rand.Next(0,boardSize);
@@ -83,14 +85,12 @@ namespace SOS_Game
                 }
             }
             board.Rows[randCellX].Cells[randCellY].Value = this.getToken().ToString();
+            this.checkSOS(ref board, randCellX, randCellY);
             // TODO: finish game logic here 
         }
 
-        public void checkSOS(ref DataGridView board, DataGridViewCellEventArgs e)
+        public void checkSOS(ref DataGridView board, int row, int col)
         {
-            int row = e.RowIndex;
-            int col = e.ColumnIndex;
-
             Color color = playerTurn == "Blue" ? Color.Blue: Color.Red;
 
             int[] match = checkNeighbors(board, row, col);

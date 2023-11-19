@@ -66,11 +66,18 @@ namespace SOS_Game
             else
             {
                 this.gameBoard.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = gameLogic.getToken().ToString();
-                this.gameLogic.checkSOS(ref this.gameBoard, e);
+                this.gameLogic.checkSOS(ref this.gameBoard, e.RowIndex, e.ColumnIndex);
                 this.gameLogic.playerClicked();
                 checkGameWinner();
                 this.currentPlayer.Text = gameLogic.playerTurn;
                 //Console.WriteLine(gameLogic.playerTurn);
+                if((this.redComputerButton.Checked || this.blueComputerButton.Checked) && !this.gameLogic.checkWinner())
+                {
+                    this.gameLogic.computerTurn(ref this.gameBoard);
+                    this.gameLogic.playerClicked();
+                    checkGameWinner();
+                    this.currentPlayer.Text = gameLogic.playerTurn;
+                }
             }
         }
 
@@ -171,13 +178,25 @@ namespace SOS_Game
         private void blueComputerButton_CheckedChanged(object sender, EventArgs e)
         {
             this.gameLogic.computer = true;
-            this.gameLogic.computerTurn(ref this.gameBoard);
+            do
+            {
+                this.gameLogic.computerTurn(ref this.gameBoard);
+                this.gameLogic.playerClicked();
+                checkGameWinner();
+                this.currentPlayer.Text = gameLogic.playerTurn;
+            } while (this.redComputerButton.Checked && this.blueComputerButton.Checked && !this.gameLogic.checkWinner());
         }
 
         private void redComputerButton_CheckedChanged(object sender, EventArgs e)
         {
             this.gameLogic.computer = true;
-            this.gameLogic.computerTurn(ref this.gameBoard);
+            do
+            {
+                this.gameLogic.computerTurn(ref this.gameBoard);
+                this.gameLogic.playerClicked();
+                checkGameWinner();
+                this.currentPlayer.Text = gameLogic.playerTurn;
+            } while (this.redComputerButton.Checked && this.blueComputerButton.Checked && !this.gameLogic.checkWinner());
         }
     }
 }
