@@ -26,6 +26,11 @@ namespace SOS_Game
             gameBoard.AllowUserToAddRows = false;
         }
 
+        public bool getComputerMode()
+        {
+            return this.gameLogic.computer;
+        }
+
         private void label1_Click(object sender, EventArgs e)
         {
 
@@ -156,6 +161,11 @@ namespace SOS_Game
         public void clickGeneral()
         {
             this.General.PerformClick();
+        }
+
+        public void clickBlueComputer()
+        {
+            this.blueComputerButton.PerformClick();
         }
 
         private void Simple_CheckedChanged(object sender, EventArgs e)

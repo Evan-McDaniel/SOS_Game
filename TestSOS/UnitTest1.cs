@@ -42,5 +42,22 @@ namespace TestSOS
             char expected = 'g';
             Assert.Equal(form.getGameLogicMode(), expected);
         }
+
+        [Fact]
+        public void TestComputerModeDisabled()
+        {
+            Form1 form = new Form1();
+            bool expected = false;
+            Assert.Equal(form.getComputerMode(), expected);
+        }
+
+        [Fact]
+        public void TestComputerModeEnabled()
+        {
+            Form1 form = new Form1();
+            form.clickBlueComputer();
+            bool expected = true;
+            Assert.Equal(form.getComputerMode(), expected);
+        }
     }
 }
