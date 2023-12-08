@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,6 +21,8 @@ namespace SOS_Game
         private int turns = 0;
         public int boardSize;
         public bool computer = false;
+        private string filePath = "c:\\users\\evanm\\college\\cs449\\gameLog.txt";
+        private FileStream logFile = File.Create("c:\\users\\evanm\\college\\cs449\\gameLog.txt");
 
         public char getToken()
         {
@@ -57,6 +60,23 @@ namespace SOS_Game
             }
         }
 
+        public void logAppend(string text)
+        {
+            File.WriteAllText(filePath, text);
+        }
+
+        public void logPlayerWon()
+        {
+            File.AppendAllText(this.filePath, $"The winner is: {this.winner}" + Environment.NewLine);
+        }
+
+        public void playerMoved(int x, int y)
+        {
+            logFile.Close();
+            File.AppendAllText(this.filePath, $"Player: {this.playerTurn} placed an: {this.getToken()} at location ({x}, {y})" + Environment.NewLine);
+            //this.logFile.wr($"Player: {this.playerTurn} placed an: {this.getToken()} at location ({x}, {y})");
+        }
+
         public void resetGame()
         {
 
@@ -85,12 +105,14 @@ namespace SOS_Game
                 }
             }
             board.Rows[randCellX].Cells[randCellY].Value = this.getToken().ToString();
+            File.AppendAllText(this.filePath, $"Player: {this.playerTurn} placed an: {this.getToken()} at location ({randCellX}, {randCellY})" + Environment.NewLine);
             this.checkSOS(ref board, randCellX, randCellY);
             // TODO: finish game logic here 
         }
 
         public void checkSOS(ref DataGridView board, int row, int col)
         {
+
             Color color = playerTurn == "Blue" ? Color.Blue: Color.Red;
 
             int[] match = checkNeighbors(board, row, col);
@@ -100,6 +122,8 @@ namespace SOS_Game
                 board.Rows[match[0]].Cells[match[1]].Style.BackColor = color;
                 board.Rows[match[2]].Cells[match[3]].Style.BackColor = color;
                 pointScored();
+                File.AppendAllText(this.filePath, $"Player: {this.playerTurn} made an SOS: at ({row}, {col}), ({match[0]}, {match[1]}), ({match[2]}, {match[3]})" + Environment.NewLine);
+                File.AppendAllText(this.filePath, $"The score is now: red: {redPoints} blue: {bluePoints}" + Environment.NewLine);
             }
 
         }

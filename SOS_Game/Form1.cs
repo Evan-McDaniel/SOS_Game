@@ -71,6 +71,7 @@ namespace SOS_Game
             else
             {
                 this.gameBoard.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = gameLogic.getToken().ToString();
+                this.gameLogic.playerMoved(e.RowIndex, e.ColumnIndex);
                 this.gameLogic.checkSOS(ref this.gameBoard, e.RowIndex, e.ColumnIndex);
                 this.gameLogic.playerClicked();
                 checkGameWinner();
@@ -83,6 +84,7 @@ namespace SOS_Game
                     checkGameWinner();
                     this.currentPlayer.Text = gameLogic.playerTurn;
                 }
+                //gamelogic.textfile.write(player.turn, gameboardx, gameboardy)
             }
         }
 
@@ -92,6 +94,7 @@ namespace SOS_Game
             {
                 String result = String.Format("The winner is: {0}\nBlue Points: {1}\nRed Points: {2}", this.gameLogic.winner, this.gameLogic.bluePoints, this.gameLogic.redPoints);
                 MessageBox.Show(result);
+                gameLogic.logPlayerWon();
             }
         }
 
