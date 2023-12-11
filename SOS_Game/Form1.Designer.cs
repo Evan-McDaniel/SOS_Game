@@ -50,6 +50,7 @@
             blueBox = new GroupBox();
             label3 = new Label();
             blueComputerButton = new RadioButton();
+            recordBtn = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)gameBoard).BeginInit();
             redBox.SuspendLayout();
             blueBox.SuspendLayout();
@@ -288,11 +289,24 @@
             blueComputerButton.UseVisualStyleBackColor = true;
             blueComputerButton.CheckedChanged += blueComputerButton_CheckedChanged;
             // 
+            // recordBtn
+            // 
+            recordBtn.AutoSize = true;
+            recordBtn.Checked = true;
+            recordBtn.CheckState = CheckState.Checked;
+            recordBtn.Location = new Point(43, 393);
+            recordBtn.Name = "recordBtn";
+            recordBtn.Size = new Size(78, 24);
+            recordBtn.TabIndex = 19;
+            recordBtn.Text = "Record";
+            recordBtn.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(recordBtn);
             Controls.Add(blueBox);
             Controls.Add(redBox);
             Controls.Add(newGameButton);
@@ -341,5 +355,6 @@
         private GroupBox blueBox;
         private Label label3;
         private RadioButton blueComputerButton;
+        private CheckBox recordBtn;
     }
 }

@@ -105,6 +105,7 @@ namespace SOS_Game
                 }
             }
             board.Rows[randCellX].Cells[randCellY].Value = this.getToken().ToString();
+            logFile.Close();
             File.AppendAllText(this.filePath, $"Player: {this.playerTurn} placed an: {this.getToken()} at location ({randCellX}, {randCellY})" + Environment.NewLine);
             this.checkSOS(ref board, randCellX, randCellY);
             // TODO: finish game logic here 

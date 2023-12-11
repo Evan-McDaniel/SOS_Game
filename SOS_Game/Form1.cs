@@ -77,7 +77,7 @@ namespace SOS_Game
                 checkGameWinner();
                 this.currentPlayer.Text = gameLogic.playerTurn;
                 //Console.WriteLine(gameLogic.playerTurn);
-                if((this.redComputerButton.Checked || this.blueComputerButton.Checked) && !this.gameLogic.checkWinner())
+                if ((this.redComputerButton.Checked || this.blueComputerButton.Checked) && !this.gameLogic.checkWinner())
                 {
                     this.gameLogic.computerTurn(ref this.gameBoard);
                     this.gameLogic.playerClicked();
